@@ -4,16 +4,17 @@ require "date"
 today = Date.today
 
 gt1 = Gt.new(name:"Fender", hp:180, attk:32, defen:8)
-gt2 = Gt.new(name:"Gibson", hp:170, attk:41, defen:3)
+gt2 = Gt.new(name:"Gibson", hp:170, attk:41, defen:4)
 gt3 = Gt.new(name:"YAMAHA", hp:175, attk:30, defen:10)
-gt4 = Gt.new(name:"PRS",    hp:190, attk:35, defen:2)
+gt4 = Gt.new(name:"PRS",    hp:190, attk:35, defen:3)
 
 gts = [gt1,gt2,gt3,gt4]
 
 
+
 puts <<~text
 ---------------------------------------
-　　　　　　伝説のギタリスト
+　　　　　　　ギターバトル
 ---------------------------------------
 
 
@@ -68,20 +69,14 @@ puts <<~text
 
 text
 
-battle_nemus = ["ギターをかき鳴らす","チューニングをする"]
+battle_menus = ["ギターをかき鳴らす","チューニングをする"]
 
-attk_num = rand(0..2)
-defen_num = rand(0..2)
 
-enemy_damege = my_gt.attk_lv(attk_num) - enemy_gt.defen_lv(defen_num)
-my_damege = enemy_gt.attk_lv(attk_num) - my_gt.defen_lv(defen_num)
-
-word = my_gt.attk_word(attk_num)
 
 
 
 while my_gt.hp > 0 && enemy_gt.hp > 0
-  battle_nemus.each.with_index do |menu,i|
+  battle_menus.each.with_index do |menu,i|
     puts "#{i}. #{menu}"
   end
     puts
@@ -89,7 +84,18 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
 
     battle_select_num = gets.chomp.to_i
 
+    attk_num = rand(0..2)
+    defen_num = rand(0..2)
+
+
+    enemy_damege = my_gt.attk_lv(attk_num) - enemy_gt.defen_lv(defen_num)
+    my_damege = enemy_gt.attk_lv(attk_num) - my_gt.defen_lv(defen_num)
+
+    word = my_gt.attk_word(attk_num)
+
+
   if battle_select_num == 1
+
 
      my_gt.hp += my_gt.defen
 
@@ -114,6 +120,7 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
     text
 
     enemy_gt.hp -= enemy_damege
+
 
   end
 
@@ -166,6 +173,11 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
     break
   end
 
+  my_gt.attk = my_gt.attk_lv_flat(attk_num)
+  my_gt.defen = my_gt.defen_lv_flat(defen_num)
+  enemy_gt.attk = enemy_gt.attk_lv_flat(attk_num)
+  enemy_gt.defen = enemy_gt.defen_lv_flat(defen_num)
+
 
 
 end
@@ -190,3 +202,7 @@ text
 puts my_gt.hp
 puts my_gt.attk
 puts my_gt.defen
+puts
+puts enemy_gt.hp
+puts enemy_gt.attk
+puts enemy_gt.defen

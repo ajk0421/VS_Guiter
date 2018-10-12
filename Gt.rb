@@ -1,9 +1,9 @@
 
 
 class Gt
-  attr_accessor :name , :hp, :attk , :defen
+  attr_accessor :name,:hp,:attk,:defen
 
-  def initialize(name:, hp:, attk:, defen:)
+  def initialize(name:,hp:,attk:,defen:)
     @name = name
     @hp = hp
     @attk = attk
@@ -32,6 +32,19 @@ class Gt
 
     else attk_num
       return @attk -= 3
+    end
+
+  end
+
+  def attk_lv_flat(attk_num)
+    if attk_num == 0
+      return @attk
+
+    elsif attk_num == 1
+      return @attk -= 5
+
+    else
+      return @attk += 3
 
 
     end
@@ -63,6 +76,18 @@ class Gt
       return @defen -= 3
     end
   end
+
+  def defen_lv_flat(defen_num)
+    if defen_num == 0
+      return @defen
+    elsif defen_num == 1
+      return @defen -= 3
+    else
+      return @defen += 3
+    end
+  end
+
+
 
 
 end
