@@ -1,15 +1,21 @@
-require "./Gt"
+require "./enemy_gt"
 require "date"
 
 today = Date.today
 
-gt1 = Gt.new(name:"Fender", hp:180, attk:32, defen:8)
-gt2 = Gt.new(name:"Gibson", hp:170, attk:41, defen:4)
-gt3 = Gt.new(name:"YAMAHA", hp:175, attk:30, defen:10)
-gt4 = Gt.new(name:"PRS",    hp:190, attk:35, defen:3)
+my_gt1 = My_gt.new(name:"Fender", hp:180, attk:32, defen:8)
+my_gt2 = My_gt.new(name:"Gibson", hp:170, attk:41, defen:4)
+my_gt3 = My_gt.new(name:"YAMAHA", hp:175, attk:30, defen:10)
+my_gt4 = My_gt.new(name:"PRS",    hp:190, attk:35, defen:3)
 
-gts = [gt1,gt2,gt3,gt4]
+my_gts = [my_gt1,my_gt2,my_gt3,my_gt4]
 
+enemy_gt1 = Enemy_gt.new(name:"EDWARDS", hp:180, attk:32, defen:8)
+enemy_gt2 = Enemy_gt.new(name:"GRETSCH", hp:170, attk:41, defen:4)
+enemy_gt3 = Enemy_gt.new(name:"IBANEZ", hp:175, attk:30, defen:10)
+enemy_gt4 = Enemy_gt.new(name:"SCHECTER", hp:190, attk:35, defen:3)
+
+enemy_gts = [enemy_gt1,enemy_gt2,enemy_gt3,enemy_gt4]
 
 
 puts <<~text
@@ -25,7 +31,7 @@ text
 my_name = gets.chomp
 
 
-gts.each.with_index do |gt,i|
+my_gts.each.with_index do |gt,i|
   puts "#{i}. #{gt.info}"
 end
 
@@ -37,14 +43,13 @@ text
 
 gt_num = gets.chomp.to_i
 
-my_gt = gts[gt_num]
+my_gt = my_gts[gt_num]
 
 enemy_gt_num = rand(0..3)
 
-enemy_gt = gts[enemy_gt_num]
+enemy_gt = enemy_gts[enemy_gt_num]
 
 enemy = "謎のギタリスト"
-
 
 
 puts <<~text
@@ -61,7 +66,7 @@ puts <<~text
 #{enemy}だ
 持っているのはの#{enemy_gt.name}のギターのようだ
 
-
+#{enemy_gt.info}
 
 さあ！ギターバトル開始！！
 
@@ -82,27 +87,30 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
     puts
     puts "＊どちらを選択しますか？"
 
+
     battle_select_num = gets.chomp.to_i
 
-    attk_num = rand(0..2)
-    defen_num = rand(0..2)
+    my_attk_num = rand(0..2)
+    my_defen_num = rand(0..2)
+    enemy_attk_num = rand(0..2)
+    enemy_defen_num = rand(0..2)
 
+    enemy_damege = my_gt.my_attk_lv(my_attk_num) - enemy_gt.enemy_defen_lv(enemy_defen_num)
+    my_damege = enemy_gt.enemy_attk_lv(enemy_attk_num) - my_gt.my_defen_lv(my_defen_num)
 
-    enemy_damege = my_gt.attk_lv(attk_num) - enemy_gt.defen_lv(defen_num)
-    my_damege = enemy_gt.attk_lv(attk_num) - my_gt.defen_lv(defen_num)
-
-    word = my_gt.attk_word(attk_num)
+    my_word = my_gt.my_attk_word(my_attk_num)
+    enemy_word = enemy_gt.enemy_attk_word(enemy_attk_num)
 
 
   if battle_select_num == 1
 
 
-     my_gt.hp += my_gt.defen
+     my_gt.hp += my_gt.attk
 
     puts <<~text
 
     #{my_name}はチューニングを直した！
-    #{my_name}は#{my_gt.defen}回復した！
+    #{my_name}は#{my_gt.attk}回復した！
     #{my_name}の残りHPは#{my_gt.hp}
 
     text
@@ -114,7 +122,7 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
     puts <<~text
 
     #{my_name}はギターをかき鳴らす！！
-    #{word}
+    #{my_word}
     #{enemy}は#{enemy_damege}のダメージ
 
     text
@@ -163,6 +171,8 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
 
   ギュイイィィィーン！！
 
+  #{enemy_word}
+
   #{my_name}は#{my_damege}のダメージをおった
 
   #{my_name}の残りHPは#{my_gt.hp}
@@ -173,10 +183,10 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
     break
   end
 
-  my_gt.attk = my_gt.attk_lv_flat(attk_num)
-  my_gt.defen = my_gt.defen_lv_flat(defen_num)
-  enemy_gt.attk = enemy_gt.attk_lv_flat(attk_num)
-  enemy_gt.defen = enemy_gt.defen_lv_flat(defen_num)
+  my_gt.attk = my_gt.my_attk_lv_flat(my_attk_num)
+  my_gt.defen = my_gt.my_defen_lv_flat(my_defen_num)
+  enemy_gt.attk = enemy_gt.enemy_attk_lv_flat(enemy_attk_num)
+  enemy_gt.defen = enemy_gt.enemy_defen_lv_flat(enemy_defen_num)
 
 
 
@@ -198,11 +208,3 @@ puts <<~text
 
 ----------------END-------------------
 text
-
-puts my_gt.hp
-puts my_gt.attk
-puts my_gt.defen
-puts
-puts enemy_gt.hp
-puts enemy_gt.attk
-puts enemy_gt.defen
