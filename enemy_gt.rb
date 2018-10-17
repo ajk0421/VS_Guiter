@@ -14,28 +14,13 @@ class Enemy_gt < My_gt
       return @attk
 
     elsif enemy_attk_num == 1
-      return @attk += 5
+      return @attk + rand(5..10)
 
     else enemy_attk_num
-      return @attk -= 3
+      return @attk - rand(3..5)
     end
 
   end
-
-  def enemy_attk_lv_flat(enemy_attk_num)
-    if enemy_attk_num == 0
-      return @attk
-
-    elsif enemy_attk_num == 1
-      return @attk -= 5
-
-    else
-      return @attk += 3
-
-
-    end
-  end
-
 
 
   def enemy_attk_word(enemy_attk_num)
@@ -57,22 +42,11 @@ class Enemy_gt < My_gt
     if enemy_defen_num == 0
       return @defen
     elsif enemy_defen_num == 1
-      return @defen += 3
+      return @defen + rand(3..5)
     else
-      return @defen -= 3
+      return @defen - rand(3..5)
     end
   end
 
-  def enemy_defen_lv_flat(enemy_defen_num)
-    if enemy_defen_num == 0
-      return @defen
-    elsif enemy_defen_num == 1
-      return @defen -= 3
-    else
-      return @defen += 3
-    end
-  end
-
-
-
+  
 end

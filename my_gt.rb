@@ -23,33 +23,19 @@ class My_gt
 
   end
 
+
   def my_attk_lv(my_attk_num)
     if my_attk_num == 0
       return @attk
 
     elsif my_attk_num == 1
-      return @attk += 5
+      return @attk + rand(5..10)
 
     else my_attk_num
-      return @attk -= 3
+      return @attk - rand(3..5)
     end
 
   end
-
-  def my_attk_lv_flat(my_attk_num)
-    if my_attk_num == 0
-      return @attk
-
-    elsif my_attk_num == 1
-      return @attk -= 5
-
-    else
-      return @attk += 3
-
-
-    end
-  end
-
 
 
   def my_attk_word(my_attk_num)
@@ -71,22 +57,11 @@ class My_gt
     if my_defen_num == 0
       return @defen
     elsif my_defen_num == 1
-      return @defen += 3
+      return @defen + rand(3..5)
     else
-      return @defen -= 3
+      return @defen - rand(3..5)
     end
   end
-
-  def my_defen_lv_flat(my_defen_num)
-    if my_defen_num == 0
-      return @defen
-    elsif my_defen_num == 1
-      return @defen -= 3
-    else
-      return @defen += 3
-    end
-  end
-
 
 
 end

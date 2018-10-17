@@ -105,12 +105,12 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
   if battle_select_num == 1
 
 
-     my_gt.hp += my_gt.attk
+     my_gt.hp += my_gt.my_attk_lv(my_attk_num)
 
     puts <<~text
 
     #{my_name}はチューニングを直した！
-    #{my_name}は#{my_gt.attk}回復した！
+    #{my_name}は#{my_gt.my_attk_lv(my_attk_num)}回復した！
     #{my_name}の残りHPは#{my_gt.hp}
 
     text
@@ -182,12 +182,6 @@ while my_gt.hp > 0 && enemy_gt.hp > 0
   if my_gt.hp <= 0
     break
   end
-
-  my_gt.attk = my_gt.my_attk_lv_flat(my_attk_num)
-  my_gt.defen = my_gt.my_defen_lv_flat(my_defen_num)
-  enemy_gt.attk = enemy_gt.enemy_attk_lv_flat(enemy_attk_num)
-  enemy_gt.defen = enemy_gt.enemy_defen_lv_flat(enemy_defen_num)
-
 
 
 end
